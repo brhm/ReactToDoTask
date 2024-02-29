@@ -1,3 +1,7 @@
+﻿using ReactToDoTask.Server.Controllers;
+using ReactToDoTask.Server.Models;
+using ReactToDoTask.Server.Repositories;
+using ReactToDoTask.Server.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IRepository<TodoItem>, TodoItemRepository>();
+builder.Services.AddScoped<ITodoService, TodoService>();
+builder.Services.AddMemoryCache();
 
 var app = builder.Build();
 
@@ -26,5 +34,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
+
 
 app.Run();
