@@ -5,12 +5,12 @@ import './styles.css';
 import { TodoItem } from '../models/TodoItem';
 import { todoApiFactory } from '../services/todoApi';
 import { TodoItemComponent } from './TodoItem';
+import { CreateTodoItemComponent } from './TodoCreate';
 
 export const TodoList: React.FC = () => {
     const [todos, setTodos] = useState<TodoItem[]>([]);
-    const [todoInput, setTodoInput] = useState('');
-    console.log(todoInput);
-
+    const [todoCreateItem, setTodoCreateItem] = useState<TodoItem>({ id: 0, completed: false, title: '', deadlineDate: new Date() });
+      
     useEffect(() => {
         handleGetTodos();
     }, []);
@@ -21,41 +21,31 @@ export const TodoList: React.FC = () => {
             console.log(result);
             if (result.status !== 'success') {
                 console.log("getTodos" + result.status);
-                //history.push('/login');
                 return;
             }
             setTodos(result.data!);
         });
     }
+    const handleCreateTodo = async (createTodoItem: TodoItem) => {
 
-    const handleCreateTodo = async () => {
-
-        if (todoInput.length <= 10) {
+        console.log("handleCreateTodo");
+        console.log(createTodoItem);
+        if (createTodoItem.title.length <= 10) {
             console.log("ssss")
         } else {
 
             const { createTodo, getTodos } = todoApiFactory();
-            const todo: TodoItem = {
-                id: 0,
-                title: todoInput,
-                completed: false,
-            };
-            setTodoInput('');
-
-            const response = await createTodo(todo);
+            const response = await createTodo(createTodoItem);
 
             if (response.status !== 'success') return;
-            
+
             handleGetTodos();
-            //const newTodo = response.data!;
-            //setTodos([...todos, newTodo]);
+
         }
     };
-
     const handleDeleteTodo = async (todoItem: TodoItem) => {
         const { deleteTodo, getTodos } = todoApiFactory();
-        const response = await deleteTodo(todoItem.id);
-        
+        const response = await deleteTodo(todoItem.id);        
 
         if (response.status !== 'success') return;
         //setTodos(todos.filter((todo) => todo.id !== todoItem.id));
@@ -69,28 +59,18 @@ export const TodoList: React.FC = () => {
 
         if (response.status !== 'success') { 
             console.log("handleCompleteTodo : " + response.status);
-            //history.push('/login');
+            
         }
-
         handleGetTodos();
     };
 
     return (
         <div>
-            <div className="new-todo-input">
-                <input
-                    type="text"
-                    placeholder="new todo..."
-                    onChange={(e) => setTodoInput(e.target.value)}
-                    value={todoInput}
-                />
-                <button onClick={() => handleCreateTodo()}>
-                    <img src={add} alt="Add" />
-                </button>
-            </div>
-            <header className="todolist-title-container">
-                <img src={logo} alt="logo" /> <strong>Todo List</strong>
-            </header>
+            <CreateTodoItemComponent
+                todoItem={todoCreateItem}
+                onCreate={handleCreateTodo}
+            />
+            
             <main className="todo-list-main">
                 <ul>
                     {todos.map((todo) => (

@@ -1,4 +1,4 @@
-.todolist-page {
+﻿.todolist-page {
     width: 100%;
     min-height: 100%;
     display: flex;
@@ -24,15 +24,15 @@
     flex: 1;
 }
 
-    .todo-list-main > ul {
-        margin: 0;
-        padding: 0;
-        background-color: white;
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
-    }
+.todo-list-main > ul {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 3px rgba(0, 0, 0.12);
+}
 
 .new-todo-input {
     align-self: stretch;
@@ -42,45 +42,37 @@
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.12);
 }
 
-    .new-todo-input > input {
-        padding-left: 12px;
-        color: black;
-        height: 30px;
-        background-color: transparent;
-        border: none;
-        flex: 1;
-        font-size: medium;
-    }
+.new-todo-input > input {
+    padding-left: 12px;
+    color: black;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    flex: 1;
+    font-size: medium;
+}
 
-        .new-todo-input > input:focus {
-            outline: none;
-        }
+.new-todo-input > input:focus {
+    outline: none;
+}
 
-    .new-todo-input > button {
-        border: none;
-        border-radius: 4px;
-        outline: none;
-        background-color: transparent;
-        width: 36px;
-        height: 36px;
-        margin-top: 5px;
-        margin-right: 10px;
-        margin-bottom: 5px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+.new-todo-div > button {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    width: 40px;
+    height: 40px;
+    margin-top: 25px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-        .new-todo-input > button > img {
-            width: 30px;
-            height: 30px;
-        }
-
-        .new-todo-input > button:hover {
-            cursor: pointer;
-            background-color: rgba(100, 100, 100, 0.2);
-        }
 
 @media (min-width: 500px) {
     .todolist-page {
@@ -118,10 +110,75 @@ p.todo-item-title {
     float: left;
     margin: 5px;
 }
+p.todo-item-deadline {
+    float: left;
+    margin: 5px;
+}
 img.delete-button {
     float: right;
     margin: 5px;
 }
-.new-todo-input {
-    height: 40px;
+
+.new-todo-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.new-todo-inputs {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start; /* Öğeleri sola hizalar */
+    margin-bottom: 10px; /* Diğer öğelerle arasına boşluk ekler */
+}
+
+.new-todo-input,
+.new-todo-date {
+    margin-bottom: 10px; /* Boşluk ekler */
+    padding: 5px; /* Gerekirse boşlukları ayarlar */
+    height:40px;
+}
+
+
+.todo-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    padding: 10px;
+}
+.todo-row-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start; /* Öğeleri sola hizalar */
+    margin-bottom: 10px; /* Diğer öğelerle arasına boşluk ekler */
+}
+.completed-checkbox {
+    margin-right: 10px;
+}
+
+.delete-button {
+    cursor: pointer;
+}
+.overDueClass {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
+}
+.inputInvalid{
+    color:red;
+}
+
+button[disabled] {
+    background-color: gray;
+    position: relative;
+}
+button[disabled]:hover {
+    border: 0px solid;
+    pointer-events:none;
+}
+.errorMessage {
+    color: red;
+    font-weight: bold;
+    font-style: italic;
 }
