@@ -5,7 +5,7 @@ import './styles.css';
 import { TodoItem } from '../models/TodoItem';
 import { todoApiFactory } from '../services/todoApi';
 import { TodoItemComponent } from './TodoItem';
-import { CreateTodoItemComponent } from './TodoCreate';
+import { NewTodoItemComponent } from './NewTodoItem';
 
 export const TodoList: React.FC = () => {
     const [todos, setTodos] = useState<TodoItem[]>([]);
@@ -66,7 +66,7 @@ export const TodoList: React.FC = () => {
 
     return (
         <div>
-            <CreateTodoItemComponent
+            <NewTodoItemComponent
                 todoItem={todoCreateItem}
                 onCreate={handleCreateTodo}
             />

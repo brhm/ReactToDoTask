@@ -4,12 +4,12 @@ import remove from '../assets/delete.svg';
 import { TodoItem } from "../models/TodoItem";
 import './styles.css';
 
-interface ICreateTodoItemComponentProps {
+interface INewTodoItemComponentProps {
     todoItem: TodoItem;
     onCreate: (todoItem: TodoItem) => void;
 }
 
-export const CreateTodoItemComponent: React.FC<ICreateTodoItemComponentProps> = ({
+export const NewTodoItemComponent: React.FC<INewTodoItemComponentProps> = ({
     todoItem,
     onCreate
 }) => {
