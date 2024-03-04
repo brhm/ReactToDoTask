@@ -1,91 +1,123 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
+using ReactToDoTask.Server.Data;
 using ReactToDoTask.Server.Models;
+using System;
 
 namespace ReactToDoTask.Server.Repositories
 {
     public class TodoItemRepository : IRepository<TodoItem>
     {
-        private readonly IMemoryCache _memoryCache;
-        public List<TodoItem> TodoItemList;
-
-        public TodoItemRepository(IMemoryCache memoryCache)
+        //private readonly IMemoryCache _memoryCache;
+       
+        public TodoItemRepository()
         {
-            _memoryCache = memoryCache;
-            TodoItemList = new List<TodoItem>();
 
-            _memoryCache.TryGetValue<List<TodoItem>>("TodoItemList", out TodoItemList);
-            if (TodoItemList == null)
+
+            using (var context = new MyDbContext())
             {
-                TodoItemList = new()
+                var todoItemList = new List<TodoItem>
                 {
-                    new TodoItem {Id=1,Title="React js Lernen",Completed=false},
-                    new TodoItem {Id=2,Title="SQL Lernen",Completed= true},
-                    new TodoItem {Id=3,Title="Angular js Lernen",Completed = true},
-                    new TodoItem {Id=4,Title="Azure Devops Lernen",Completed = false},
-                    new TodoItem {Id=5,Title=".Net Core Lernen",Completed = false},
-                    new TodoItem {Id=6,Title="Data Science Lernen",Completed = true},
-                    new TodoItem {Id=7,Title="SOLID Lernen",Completed = true},
-                    new TodoItem {Id=8,Title="DDD Architecture Lernen",  Completed = false},
-                    new TodoItem {Id=9,Title="Javascript Lernen",Completed = true}
+                    new TodoItem {Id=1,Title="React js Lernen",CreatedDate=DateTime.Now.AddDays(-5), DeadlineDate=DateTime.Now.AddDays(3), Completed=false},
+                    new TodoItem {Id=2,Title="SQL Lernen",CreatedDate=DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(3),Completed= true},
+                    new TodoItem {Id = 3, Title = "Angular js Lernen", CreatedDate = DateTime.Now.AddDays(-3), DeadlineDate = DateTime.Now.AddDays(3), Completed = true},
+                    new TodoItem {Id = 4, Title = "Azure Devops Lernen", CreatedDate = DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(-1), Completed = false},
+                    new TodoItem {Id = 5, Title = ".Net Core Lernen", CreatedDate = DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(3), Completed = false},
+                    new TodoItem {Id = 6, Title = "Data Science Lernen", CreatedDate = DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(3), Completed = true},
+                    new TodoItem {Id = 7, Title = "SOLID Lernen", CreatedDate = DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(3), Completed = true},
+                    new TodoItem {Id = 8, Title = "DDD Architecture Lernen", CreatedDate = DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(-2), Completed = false},
+                    new TodoItem {Id = 9, Title = "Javascript Lernen", CreatedDate = DateTime.Now.AddDays(-5), DeadlineDate = DateTime.Now.AddDays(3), Completed = true}
                 };
-                _memoryCache.Set("TodoItemList",TodoItemList);
+
+                context.TodoItems.AddRange(todoItemList);
+                context.SaveChanges();
+
             }
+
+
+
         
         }
     
         public void Delete(int id)
         {
-            var hasTodoItem = TodoItemList.Find(p => p.Id == id);
 
-            if (hasTodoItem == null)
+            using (var context = new MyDbContext())
             {
 
-                throw new Exception($"{id} - Todoitem is not found");
+                var hasTodoItem = context.TodoItems.FirstOrDefault(p => p.Id == id);
 
+                if (hasTodoItem == null)
+                {
+
+                    throw new Exception($"{id} - Todoitem is not found");
+
+                }
+
+                context.TodoItems.Remove(hasTodoItem);
+                context.SaveChanges();
             }
-
-            TodoItemList.Remove(hasTodoItem);
         }
 
         public List<TodoItem> GetAll()
         {
-            return TodoItemList;
+            using (var context = new MyDbContext())
+            {
+
+                return context.TodoItems.OrderBy(p=>p.Id).ToList();
+            }
         }
 
         public TodoItem GetById(int id)
         {
-            var hasTodoItem = TodoItemList.Find(p => p.Id == id);
-
-            if (hasTodoItem == null)
+            using (var context = new MyDbContext())
             {
 
-                throw new Exception($"{id} - Todoitem is not found");
+                var hasTodoItem = context.TodoItems.FirstOrDefault(p => p.Id == id);
 
+                if (hasTodoItem == null)
+                {
+
+                    throw new Exception($"{id} - Todoitem is not found");
+
+                }
+
+                return hasTodoItem;
             }
-
-            return hasTodoItem;
         }
 
         public void Insert(TodoItem item)
         {
-            var hasProduct = TodoItemList.Any(p => p.Id == item.Id);
-
-            if (!hasProduct)
+            using (var context = new MyDbContext())
             {
-                item.Id=TodoItemList.Max(p => p.Id)+1;
 
-                TodoItemList.Add(item);
-                _memoryCache.Set("TodoItemList", TodoItemList);
+                var hasProduct = context.TodoItems.Any(p => p.Id == item.Id);
+
+                if (!hasProduct)
+                {
+                    item.Id = context.TodoItems.Max(p => p.Id) + 1;
+
+                    context.TodoItems.Add(item);
+                   context.SaveChanges();
+                }
             }
         }
 
         public void Update(TodoItem item)
         {
-            var hasProduct = TodoItemList.Any(p => p.Id == item.Id);
-            var index = TodoItemList.FindIndex(p => p.Id == item.Id);
+            using (var context = new MyDbContext())
+            {
 
-            TodoItemList[index] = item;
-            _memoryCache.Set("TodoItemList", TodoItemList);
+                var hasProduct = context.TodoItems.FirstOrDefault(p => p.Id == item.Id);
+                if (hasProduct != null)
+                {
+                    hasProduct.Title = item.Title;
+                    hasProduct.Completed=item.Completed;
+                    hasProduct.DeadlineDate=item.DeadlineDate;
+                    hasProduct.CompletedDate = DateTime.Now;
+                    //context.TodoItems.Update(item);
+                    context.SaveChanges();
+                }
+            }
 
         }
     }
