@@ -11,3 +11,17 @@ Task description:
 3. The tasks are displayed in a table.
 
 4. They can be deleted and marked as done.
+
+---------------------------------------------------------------------------
+# How will you run it?
+
+1- Clone the project on your local PC.
+
+2- The Server project and Client Project have to run same time.
+    
+    a. For Visual Studio Ide - You can configure the <Multiple Startup Projects> and then click the Start button.
+    
+    b. For VS Code Editor- You have to run the first server project then you have to run the client project.
+
+
+
