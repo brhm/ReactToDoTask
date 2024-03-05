@@ -28,14 +28,14 @@ namespace ReactToDoTask.Server.Services
             return _todoitemRepository.GetById(id);
         }
 
-        public void Insert(TodoItem item)
+        public TodoItem Insert(TodoItem item)
         {
-            _todoitemRepository.Insert(item);
+           return _todoitemRepository.Insert(item);
         }
 
-        public void Update(TodoItem item)
+        public TodoItem Update(TodoItem item)
         {
-            _todoitemRepository.Update(item);
+            return _todoitemRepository.Update(item);
         }
     }
 }

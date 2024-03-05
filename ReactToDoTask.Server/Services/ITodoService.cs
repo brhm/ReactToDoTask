@@ -6,9 +6,8 @@ namespace ReactToDoTask.Server.Services
     {
         List<TodoItem> GetAll();
         TodoItem GetById(int id);
-        void Insert(TodoItem item);
-
-        void Update(TodoItem item);
+        TodoItem Insert(TodoItem item);
+        TodoItem Update(TodoItem item);
         void Delete(int id);
     }
 }

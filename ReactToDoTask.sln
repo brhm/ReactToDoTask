@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReactToDoTask.Server", "ReactToDoTask.Server\ReactToDoTask.Server.csproj", "{5295FDD9-123C-4A69-AA94-E184992813BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReactToDoTask.Server", "ReactToDoTask.Server\ReactToDoTask.Server.csproj", "{5295FDD9-123C-4A69-AA94-E184992813BC}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "reacttodotask.client", "reacttodotask.client\reacttodotask.client.esproj", "{B4BB6667-1666-43B5-8A73-E77B23D77CC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{480E0789-F3DF-451D-8059-0A8E4443A458}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.ReactToDoTask.Server", "Test.ReactToDoTask.Server\Test.ReactToDoTask.Server.csproj", "{5B7A1554-2D1A-4BE9-9FBE-9B18ADBA7CEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,9 +27,16 @@ Global
 		{B4BB6667-1666-43B5-8A73-E77B23D77CC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4BB6667-1666-43B5-8A73-E77B23D77CC9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B4BB6667-1666-43B5-8A73-E77B23D77CC9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5B7A1554-2D1A-4BE9-9FBE-9B18ADBA7CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B7A1554-2D1A-4BE9-9FBE-9B18ADBA7CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B7A1554-2D1A-4BE9-9FBE-9B18ADBA7CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B7A1554-2D1A-4BE9-9FBE-9B18ADBA7CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5B7A1554-2D1A-4BE9-9FBE-9B18ADBA7CEA} = {480E0789-F3DF-451D-8059-0A8E4443A458}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D7A150DD-B3C3-4135-9F66-CD1103976D22}

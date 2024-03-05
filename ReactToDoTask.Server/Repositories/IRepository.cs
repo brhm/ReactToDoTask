@@ -4,9 +4,9 @@
     {
         List<T> GetAll();
         T GetById(int id);
-        void Insert(T item);
+        T Insert(T item);
 
-        void Update(T item);
+        T Update(T item);
         void Delete(int id);
 
     }

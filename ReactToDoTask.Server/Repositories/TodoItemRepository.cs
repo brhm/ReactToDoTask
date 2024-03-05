@@ -74,18 +74,11 @@ namespace ReactToDoTask.Server.Repositories
 
                 var hasTodoItem = context.TodoItems.FirstOrDefault(p => p.Id == id);
 
-                if (hasTodoItem == null)
-                {
-
-                    throw new Exception($"{id} - Todoitem is not found");
-
-                }
-
                 return hasTodoItem;
             }
         }
 
-        public void Insert(TodoItem item)
+        public TodoItem Insert(TodoItem item)
         {
             using (var context = new MyDbContext())
             {
@@ -97,12 +90,13 @@ namespace ReactToDoTask.Server.Repositories
                     item.Id = context.TodoItems.Max(p => p.Id) + 1;
 
                     context.TodoItems.Add(item);
-                   context.SaveChanges();
+                    context.SaveChanges();
                 }
             }
+            return item;
         }
 
-        public void Update(TodoItem item)
+        public TodoItem Update(TodoItem item)
         {
             using (var context = new MyDbContext())
             {
@@ -116,9 +110,10 @@ namespace ReactToDoTask.Server.Repositories
                     hasProduct.CompletedDate = DateTime.Now;
                     //context.TodoItems.Update(item);
                     context.SaveChanges();
+                    return hasProduct;
                 }
             }
-
+            return item;
         }
     }
 }

@@ -30,30 +30,47 @@ namespace ReactToDoTask.Server.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_todoService.GetById(id));
+            if(id <1)
+                return BadRequest();
+            var item = _todoService.GetById(id);
+            if (item==null)
+            {
+                return NotFound();
+            }
+            return Ok(item);
         }
 
         // POST api/<TodoItemController>
         [HttpPost]
         public IActionResult Post([FromBody] TodoItem value)
         {
-            _todoService.Insert(value);
-            return Ok();
+            if(value == null)
+                return BadRequest();
+
+            return Ok(_todoService.Insert(value));
         }
 
         // PUT api/<TodoItemController>/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] TodoItem value)
         {
-            value.Id = id;
-            _todoService.Update(value);
-            return Ok();
+            if (id<1 || value==null)
+            {
+                return BadRequest();
+            }
+
+            value.Id = id;            
+            return Ok(_todoService.Update(value));
         }
 
         // DELETE api/<TodoItemController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+            if (id<1)
+            {
+                return BadRequest();
+            }
             _todoService.Delete(id);
             return Ok();
         }
