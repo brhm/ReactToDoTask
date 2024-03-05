@@ -17,7 +17,11 @@ Task description:
 
 1- Clone the project on your local PC.
 
-2- The Server project and Client Project have to run same time.
+2- Open the project solution with Visual Studio Ide.  
+
+3- Configure the <Multiple Startup Projects> (select server and client projects) and run it.
+
+4- The Server project and Client Project have to run same time.
     
     a. For Visual Studio Ide - You can configure the <Multiple Startup Projects> and then click the Start button.
     
